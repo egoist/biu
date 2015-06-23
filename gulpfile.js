@@ -32,6 +32,6 @@ gulp.task('watch', function() {
   gulp.watch('./src/js/biu.js', ['js'])
 })
 
-gulp.task('build', ['js', 'html'])
+gulp.task('build', ['js', 'css', 'html'])
 
 gulp.task('default', ['build', 'watch'])
