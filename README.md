@@ -13,4 +13,4 @@ Visit [Biu](http://aprilorange.github.io/biu)
 
 ## License
 
-MIT(/LICENSE)
+[MIT](/LICENSE)
