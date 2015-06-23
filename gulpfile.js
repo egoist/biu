@@ -16,7 +16,11 @@ gulp.task('js', function() {
 
 gulp.task('html', function() {
   gulp.src('./src/jade/index.jade')
-    .pipe(jade())
+    .pipe(jade({
+      locals: {
+        buildTime: new Date().getTime()
+      }
+    }))
     .pipe(gulp.dest('./'))
 })
 

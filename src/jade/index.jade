@@ -4,8 +4,8 @@ html
     meta(charset="utf-8")
     meta(name="viewport",content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
     title Biu
-    link(rel="stylesheet", href="./biu.css")
-    link(rel="stylesheet", href="http://cdn.staticfile.org/prism/0.0.1/prism.min.css")
+    link(rel="stylesheet", href="./biu.css?t=#{buildTime}")
+    link(rel="stylesheet", href="//dn-staticfile.qbox.me/prism/0.0.1/prism.min.css")
     style.
       body {
         margin: 0;
@@ -94,5 +94,5 @@ html
         | An 
         a.insekai(href="http://insekai.com") INSEKAI
         |  project.
-    script(src="./biu.js")
-    script(src="http://cdn.staticfile.org/prism/0.0.1/prism.min.js")
+    script(src="./biu.js?t=#{buildTime}")
+    script(src="//dn-staticfile.qbox.me/prism/0.0.1/prism.min.js")
