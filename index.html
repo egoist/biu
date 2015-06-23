@@ -1,0 +1,54 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><title>Biu</title><link rel="stylesheet" href="/biu.css"><link rel="stylesheet" href="http://cdn.staticfile.org/prism/0.0.1/prism.min.css"><style>body {
+  font: 14px/1.4 'Helvetica Neue', serif;
+}
+h1 {
+  font-size: 46px;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+.main {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+button {
+  margin: 10px;
+  border: 1px solid #eee;
+  outline: none;
+  background: #f0f0f0;
+  padding: 5px;
+}
+button:hover {
+  color: #fff;
+  background: #4078c0;
+}
+pre {
+  text-align: left;
+}
+code {
+  overflow: hidden !important;
+}
+.footer {
+  padding: 30px 0;
+}
+.insekai {
+  color: #4078c0;
+}</style></head><body><div class="main"><h1> <a href="/">Biu</a></h1><iframe src="https://ghbtns.com/github-btn.html?user=AprilOrange&amp;repo=biu&amp;type=star&amp;count=true" frameborder="0" scrolling="0" width="85px" height="20px"></iframe><iframe src="https://ghbtns.com/github-btn.html?user=AprilOrange&amp;repo=biu&amp;type=fork&amp;count=true" frameborder="0" scrolling="0" width="85px" height="20px"></iframe><h2>Basic Usage</h2><pre><code class="lang-javascript">biu(&#39;text you want to show&#39;)
+biu(&#39;success&#39;, &#39;text with a type&#39;)
+biu(&#39;info&#39;, &#39;do not auto hide me&#39;, false)
+</code></pre>
+<button onclick="biu('success', 'done!')">Success</button><button onclick="biu('info', 'info not to be auto hidden', false)">Info</button><button onclick="biu('warning','You are restricted to do this!', false)">Warning</button><button onclick="biu('danger', 'You are dead!', false)">Danger</button><h2>Advanced</h2><pre><code class="lang-javascript">// only `text` is required
+// everything else uses the default value if not set
+biu({
+  type: &#39;info&#39;,
+  text: &#39;some message&#39;,
+  height: &#39;50px&#39;,
+  lineHeight: &#39;50px&#39;,
+  top: &#39;-55px&#39;,
+  closeButton: &#39;x&#39;,
+  autoFade: true
+})
+</code></pre>
+<footer class="footer">An <a href="http://insekai.com" class="insekai">INSEKAI</a> project.</footer></div><script src="/biu.js"></script><script src="http://cdn.staticfile.org/prism/0.0.1/prism.min.js"></script></body></html>

@@ -1,0 +1,22 @@
+{
+  "name": "biu",
+  "main": "biu.js",
+  "homepage": "https://github.com/AprilOrange/biu",
+  "authors": [
+    "April Orange <aprilorange.net@icloud.com>"
+  ],
+  "keywords": [
+    "alert"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "index.html",
+    "src",
+    "gulpfile.js"
+  ]
+}
