@@ -4,8 +4,7 @@
     height: '50px',
     lineHeight: '50px',
     top: '-55px',
-    closeButton: 'x',
-    autoFade: true
+    closeButton: 'x'
   };
   window.biuOpts = biuOpts;
   var style = 'height:' + biuOpts.height + ';line-height:' + biuOpts.lineHeight + ';top:' + biuOpts.top;

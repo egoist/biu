@@ -65,16 +65,18 @@ html
       h2 Advanced
       :markdown
         ```javascript
-        // only `text` is required
-        // everything else uses the default value if not set
-        biu({
-          type: 'info',
-          text: 'some message',
+        // global settings
+        window.biuOpts = {
           height: '50px',
           lineHeight: '50px',
           top: '-55px',
-          closeButton: 'x',
-          autoFade: true
+          closeButton: 'x'
+        }
+        // use object as arguement
+        biu({
+          text: 'hello there, done registered!',
+          type: 'success',
+          autoFade: false
         })
         ```
       footer.footer

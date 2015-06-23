@@ -39,16 +39,18 @@ code {
 biu(&#39;success&#39;, &#39;text with a type&#39;)
 biu(&#39;info&#39;, &#39;do not auto hide me&#39;, false)
 </code></pre>
-<button onclick="biu('success', 'done!')">Success</button><button onclick="biu('info', 'info not to be auto hidden', false)">Info</button><button onclick="biu('warning','You are restricted to do this!', false)">Warning</button><button onclick="biu('danger', 'You are dead!', false)">Danger</button><h2>Advanced</h2><pre><code class="lang-javascript">// only `text` is required
-// everything else uses the default value if not set
-biu({
-  type: &#39;info&#39;,
-  text: &#39;some message&#39;,
+<button onclick="biu('success', 'done!')">Success</button><button onclick="biu('info', 'info not to be auto hidden', false)">Info</button><button onclick="biu('warning','You are restricted to do this!', false)">Warning</button><button onclick="biu('danger', 'You are dead!', false)">Danger</button><h2>Advanced</h2><pre><code class="lang-javascript">// global settings
+window.biuOpts = {
   height: &#39;50px&#39;,
   lineHeight: &#39;50px&#39;,
   top: &#39;-55px&#39;,
-  closeButton: &#39;x&#39;,
-  autoFade: true
+  closeButton: &#39;x&#39;
+}
+// use object as arguement
+biu({
+  text: &#39;hello there, done registered!&#39;,
+  type: &#39;success&#39;,
+  autoFade: false
 })
 </code></pre>
 <footer class="footer">An <a href="http://insekai.com" class="insekai">INSEKAI</a> project.</footer></div><script src="http://aprilorange.github.io/biu/biu.js"></script><script src="http://cdn.staticfile.org/prism/0.0.1/prism.min.js"></script></body></html>
