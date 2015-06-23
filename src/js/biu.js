@@ -4,7 +4,8 @@
     height: '50px',
     lineHeight: '50px',
     top: '-55px',
-    closeButton: 'x'
+    closeButton: 'x',
+    delay: 5000
   };
   window.biuOpts = biuOpts;
   var style = 'height:' + biuOpts.height + ';line-height:' + biuOpts.lineHeight + ';top:' + biuOpts.top;
@@ -56,7 +57,7 @@
     if(biuAutoFade) {
       setTimeout(function() {
         div.classList.remove('biu-shown');
-      }, 5000);
+      }, biuOpts.delay);
     }
     
   };
