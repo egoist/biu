@@ -1,5 +1,7 @@
 !(function () {
-
+  // my code is shitty
+  // feel free to add your own features
+  // or beautify it
   var biuOpts = {
     height: '50px',
     lineHeight: '50px',
@@ -11,7 +13,7 @@
   var style = 'height:' + biuOpts.height + ';line-height:' + biuOpts.lineHeight + ';top:' + biuOpts.top;
 
   var biu = function(argv) {
-    console.log(argv);
+    
     var div = document.createElement('div');
     var instance = new Date().getTime();
     instance = 'biu-instance-' + instance;
@@ -61,8 +63,6 @@
     }
     
   };
-
-  console.log('biu');
 
   window.biu = function() {
     return new biu(arguments);
