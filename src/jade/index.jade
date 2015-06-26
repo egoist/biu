@@ -57,7 +57,7 @@ html
       }
   body
     .main
-      h1 
+      h1
         a(href="/") Biu
       iframe(src="https://ghbtns.com/github-btn.html?user=AprilOrange&repo=biu&type=star&count=true" frameborder="0" scrolling="0" width="85px" height="20px")
       iframe(src="https://ghbtns.com/github-btn.html?user=AprilOrange&repo=biu&type=fork&count=true" frameborder="0" scrolling="0" width="85px" height="20px")
@@ -80,18 +80,18 @@ html
           height: '50px',
           lineHeight: '50px',
           top: '-55px',
-          closeButton: 'x',
-          delay: 5000
+          closeButton: 'x'
         }
         // use object as argument
         biu({
           text: 'hello there, done registered!',
           type: 'success',
-          autoFade: false
+          autoFade: false,
+          delay: 5000
         })
         ```
       footer.footer
-        | An 
+        | An
         a.insekai(href="http://insekai.com") INSEKAI
         |  project.
     script(src="./biu.js?t=#{buildTime}")
