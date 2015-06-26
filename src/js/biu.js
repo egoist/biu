@@ -6,14 +6,13 @@
     height: '50px',
     lineHeight: '50px',
     top: '-55px',
-    closeButton: 'x',
-    delay: 5000
+    closeButton: 'x'
   };
   window.biuOpts = biuOpts;
   var style = 'height:' + biuOpts.height + ';line-height:' + biuOpts.lineHeight + ';top:' + biuOpts.top;
 
   var biu = function(argv) {
-    
+
     var div = document.createElement('div');
     var instance = new Date().getTime();
     instance = 'biu-instance-' + instance;
@@ -21,12 +20,14 @@
     var biuStyle = 'info';
     var biuContent = null;
     var biuAutoFade = true;
+    var biuDelay = 5000;
     if(typeof argv[0] === 'object') {
 
       var opt = argv[0];
       if(opt.type) biuStyle = opt.type;
       if(opt.text) biuContent = opt.text;
       biuAutoFade = (typeof opt.autoFade !== 'undefined') ? opt.autoFade : true;
+      biuDelay = (typeof opt.delay !== 'undefined') ? opt.delay : 5000;
     } else if(argv[0] && !argv[1]) {
       // biu('text') === biu('info', 'text')
       biuContent = argv[0];
@@ -59,9 +60,9 @@
     if(biuAutoFade) {
       setTimeout(function() {
         div.classList.remove('biu-shown');
-      }, biuOpts.delay);
+      }, biuDelay);
     }
-    
+
   };
 
   window.biu = function() {

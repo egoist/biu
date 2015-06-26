@@ -3,8 +3,13 @@ var
   uglify = require('gulp-uglify'),
   jade = require('gulp-jade'),
   stylus = require('gulp-stylus'),
-  sourcemaps = require('gulp-sourcemaps')
-	
+  sourcemaps = require('gulp-sourcemaps'),
+  serve = require('gulp-serve')
+
+gulp.task('serve', serve({
+  root: ['./'],
+  port: 3000
+}));
 
 gulp.task('js', function() {
   gulp.src('./src/js/biu.js')
@@ -38,4 +43,4 @@ gulp.task('watch', function() {
 
 gulp.task('build', ['js', 'css', 'html'])
 
-gulp.task('default', ['build', 'watch'])
+gulp.task('default', ['build', 'watch', 'serve'])
