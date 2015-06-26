@@ -71,7 +71,7 @@ html
       button(onclick="biu('success', 'done!')") Success
       button(onclick="biu('info', 'info not to be auto hidden', false)") Info
       button(onclick="biu('warning','You are restricted to do this!', false)") Warning
-      button(onclick="biu('danger', 'You are dead!', false)") Danger
+      button(onclick="biu({type: 'danger', text: 'You are dead!', autoFade: false})") Danger
       h2 Advanced
       :markdown
         ```javascript

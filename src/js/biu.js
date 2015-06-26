@@ -14,25 +14,26 @@
   var biu = function(argv) {
 
     var div = document.createElement('div');
-    var instance = new Date().getTime();
-    instance = 'biu-instance-' + instance;
+    var timestamp = new Date().getTime();
+    instance = 'biu-instance-' + timestamp;
     div.id = instance;
     var biuStyle = 'info';
-    var biuContent = null;
+    var biuContent = '';
     var biuAutoFade = true;
     var biuDelay = 5000;
+    var biuStack = false;
+    var biuCloseButton = '';
     if(typeof argv[0] === 'object') {
-
       var opt = argv[0];
       if(opt.type) biuStyle = opt.type;
-      if(opt.text) biuContent = opt.text;
+      if(opt.text.toString()) biuContent = opt.text;
       biuAutoFade = (typeof opt.autoFade !== 'undefined') ? opt.autoFade : true;
       biuDelay = (typeof opt.delay !== 'undefined') ? opt.delay : 5000;
+      biuStack = (typeof opt.stack !== 'undefined') ? opt.stack : false;
     } else if(argv[0] && !argv[1]) {
       // biu('text') === biu('info', 'text')
       biuContent = argv[0];
     } else {
-
       biuStyle = argv[0];
       biuContent = argv[1];
       biuAutoFade = (typeof argv[2] !== 'undefined') ? argv[2] : true;
@@ -44,13 +45,13 @@
     div.classList.add(biuStyle);
     div.setAttribute('style', style);
     div.setAttribute('data-auto-hide', biuAutoFade);
+
     // set text content
-    biuContent = '<div class="biu-content">' + biuContent + '</div>';
     if(!biuAutoFade) {
       //var closeButtonTop =  (parseInt(biuOpts.height)/2) + 'px';
-      var biuCloseButton = '<div class="biu-close" onclick="this.parentNode.classList.remove(\'biu-shown\')">' + biuOpts.closeButton + '</div>';
-      biuContent += biuCloseButton;
+      biuCloseButton = '<div class="biu-close" id="biu-close-' + timestamp + '"">' + biuOpts.closeButton + '</div>';
     }
+    biuContent = '<div class="biu-content">' + biuContent + '</div>' + biuCloseButton;
     div.innerHTML = biuContent;
 
     document.body.appendChild(div);
@@ -59,11 +60,20 @@
     }, 100)
     if(biuAutoFade) {
       setTimeout(function() {
-        div.classList.remove('biu-shown');
+        onClose();
       }, biuDelay);
+    } else {
+      document.getElementById('biu-close-' + timestamp).addEventListener('click', onClose);
     }
 
+    function onClose() {
+      div.classList.remove('biu-shown');
+      setTimeout(function() {
+        div.parentNode.removeChild(div);
+      }, 1000);
+    };
   };
+
 
   window.biu = function() {
     return new biu(arguments);
