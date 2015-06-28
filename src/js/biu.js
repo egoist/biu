@@ -60,7 +60,7 @@
       if(typeof opt.parent !== 'undefined') {
         biuParent = queryDom(opt.parent);
         if(opt.parent != 'body') {
-          style += 'position:absolute;';
+          div.classList.add('biu-absolute');
           biuParentIsBody = false;
         }
       }
