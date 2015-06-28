@@ -59,8 +59,8 @@
       biuDelay = (typeof opt.delay !== 'undefined') ? opt.delay : 5000;
       if(typeof opt.parent !== 'undefined') {
         biuParent = queryDom(opt.parent);
-        style += 'position:absolute;';
         if(opt.parent != 'body') {
+          style += 'position:absolute;';
           biuParentIsBody = false;
         }
       }
