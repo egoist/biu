@@ -3,6 +3,7 @@ transition(n)
   -moz-transition n
   transition n
 
+t = top .3s ease-in-out, opacity .2s ease-in-out
 .biu-instance
   height 50px
   line-height @height
@@ -14,9 +15,10 @@ transition(n)
   text-align center
   border-bottom 1px solid #e2e2e2
   z-index 99999
-  transition(top .3s ease-in-out)
+  opacity 0
+  transition(t)
 
-.biu-content 
+.biu-content
   display inline-block
 
 .biu-close
@@ -27,6 +29,7 @@ transition(n)
 
 .biu-shown
   top 0 !important
+  opacity 1
 
 .biu-success,.biu-info,biu-warning
   color white

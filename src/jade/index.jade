@@ -12,6 +12,11 @@ html
         background: #f9f9f9;
         font: 15px/1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
       }
+      * {
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+      }
       h1 {
         font-size: 46px;
         margin: 0;
@@ -32,14 +37,14 @@ html
         border-left: 1px solid #e2e2e2;
         border-right: 1px solid #e2e2e2;
       }
-      button {
+      .button {
         margin: 10px;
         border: 1px solid #eee;
         outline: none;
         background: #f0f0f0;
         padding: 5px;
       }
-      button:hover {
+      .button:hover {
         color: #fff;
         background: #4078c0;
       }
@@ -55,6 +60,38 @@ html
       .insekai {
         color: #4078c0;
       }
+      .element {
+        height: 200px;
+        background-color: #f5f2f0;
+        border-radius: 3px;
+        position: relative;
+      }
+      .sandbox {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 24px;
+        height: 40px;
+        width: 100px;
+        margin-left: -50px;
+        margin-top: -20px;
+        line-height: 40px;
+        text-align: center;
+        color: #999;
+        text-shadow: 0 1px #fff;
+      }
+      .inner {
+        padding: 10px;
+      }
+      .hey {
+        background-color: #fff;
+        border-radius: 33px;
+        height: 33px;
+        line-height: 33px;
+        border: 1px solid #e2e2e2;
+        padding: 0 20px;
+        outline: none;
+      }
   body
     .main
       h1
@@ -68,10 +105,10 @@ html
         biu('success', 'text with a type')
         biu('info', 'do not auto hide me', false)
         ```
-      button(onclick="biu('success', 'done!')") Success
-      button(onclick="biu('info', 'info not to be auto hidden', false)") Info
-      button(onclick="biu('warning','You are restricted to do this!', false)") Warning
-      button(onclick="biu({type: 'danger', text: 'You are dead!', autoFade: false})") Danger
+      button.button(onclick="biu('success', 'done!')") Success
+      button.button(onclick="biu('info', 'info not to be auto hidden', false)") Info
+      button.button(onclick="biu('warning','You are restricted to do this!', false)") Warning
+      button.button(onclick="biu({type: 'danger', text: 'You are dead!', autoFade: false})") Danger
       h2 Advanced
       :markdown
         ```javascript
@@ -87,12 +124,17 @@ html
           text: 'hello there, done registered!',
           type: 'success',
           autoFade: false,
-          delay: 5000
+          delay: 5000,
+          parent: 'body'
         })
         ```
+      h2 Biu in elements other than body
+      div.element#element
+        span.sandbox 
+          button.hey(onclick="biu({autoFade:false,text:'Wow, how kimochi it is...',parent:'#element',type:'success'})") Touch me
       footer.footer
-        | An
+        | An 
         a.insekai(href="http://insekai.com") INSEKAI
-        |  project.
+        |  Project.
     script(src="./biu.js?t=#{buildTime}")
     script(src="//dn-staticfile.qbox.me/prism/0.0.1/prism.min.js")
