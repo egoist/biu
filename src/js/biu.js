@@ -35,10 +35,10 @@
     closeButton: 'x'
   };
   window.biuOpts = biuOpts;
-  var style = 'height:' + biuOpts.height + ';line-height:' + biuOpts.lineHeight + ';top:' + biuOpts.top + ';';
+
 
   var biu = function(argv) {
-
+    var style = 'height:' + biuOpts.height + ';line-height:' + biuOpts.lineHeight + ';top:' + biuOpts.top + ';';
     var div = document.createElement('div');
     var timestamp = new Date().getTime();
     instance = 'biu-instance-' + timestamp;
