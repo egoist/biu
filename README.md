@@ -10,7 +10,7 @@ bower install biu
 
 ## Usage and Demo
 
-Visit [Biu](http://biu,js.org)
+Visit [Biu](http://biu.js.org)
 
 ## Development
 
