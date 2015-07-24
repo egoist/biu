@@ -1,4 +1,4 @@
-# biu [![JS.ORG](https://img.shields.io/badge/js.org-biu-ffb400.svg?style=flat-square)](http://js.org)
+# biu [![JS.ORG](https://img.shields.io/badge/js.org-biu-ffb400.svg?style=flat-square)](http://biu.js.org)
 
 an alert replacement
 
