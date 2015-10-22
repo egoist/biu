@@ -1,8 +1,8 @@
 {
-  "name": "biu",
+  "name": "biu.js",
   "version": "0.0.1",
   "description": "an alert replacement",
-  "main": "gulpfile.js",
+  "main": "biu.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

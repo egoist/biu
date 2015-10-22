@@ -111,9 +111,15 @@
     };
   };
 
+  if (typeof window !== 'undefined') {
+    window.biu = function() {
+      return new biu(arguments);
+    };
+  } else if (typeof module !== 'undefined') {
+    module.exports = function() {
+      return new biu(arguments);
+    };
+  }
 
-  window.biu = function() {
-    return new biu(arguments);
-  };
 
 })();
