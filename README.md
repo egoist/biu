@@ -6,7 +6,7 @@ an alert replacement
 
 ```bash
 bower install biu
-npm install biu
+npm install biu.js
 ```
 
 ## Usage and Demo
