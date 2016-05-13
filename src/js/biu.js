@@ -1,125 +1,122 @@
-!(function () {
-  // my code is shitty
-  // feel free to add your own features
-  // or beautify it
+!(function (W, D) {
+  function isBody(el) {
+    return el.toString && el.toString() === '[object HTMLBodyElement]'
+  }
+  class Biu {
+    constructor(text, options) {
+      this.text = text
+      this.options = options
+      this.el = D.createElement('div')
+      this.el.className = `biu-instance biu-${options.type}`
+      this.el.style.textAlign = this.options.align
 
-  function queryDom(p) {
-    var z = 'getElement',
-        g = 'Name',
-        a = {'#': 'ById', '.': 'sByClass' + g, '@': 'sBy' + g, '=': 'sByTag' + g}[p[0]] || false,
-        b = p.slice(1),
-        u = (a ? document[z + a](b) : document.querySelectorAll(p));
-
-    var el = (checkType(u, 'NodeList')) ? Array.prototype.slice.call(u) : u;
-    return el;
-  };
-
-  function checkType(obj, type) {
-    return Object.prototype.toString.call(obj) === '[object ' + type + ']';
-  };
-
-  function domEach(element, fn) {
-    if (checkType(element, 'Array')) {
-      Array.prototype.forEach.call(element, function(el, i){
-        fn(el);
-      });
-    } else {
-      fn(element);
-    }
-  };
-
-  var biuOpts = {
-    height: '50px',
-    lineHeight: '50px',
-    top: '-55px',
-    closeButton: 'x'
-  };
-  window.biuOpts = biuOpts;
-
-
-  var biu = function(argv) {
-    var style = 'height:' + biuOpts.height + ';line-height:' + biuOpts.lineHeight + ';top:' + biuOpts.top + ';';
-    var div = document.createElement('div');
-    var timestamp = new Date().getTime();
-    instance = 'biu-instance-' + timestamp;
-    div.id = instance;
-    var biuStyle = 'info';
-    var biuContent = '';
-    var biuAutoFade = true;
-    var biuDelay = 5000;
-    var biuStack = false;
-    var biuCloseButton = '';
-    var biuParent = queryDom('body');
-    var biuParentIsBody = true;
-    if(typeof argv[0] === 'object') {
-      var opt = argv[0];
-      if(opt.type) biuStyle = opt.type;
-      if(opt.text.toString()) biuContent = opt.text;
-      biuAutoFade = (typeof opt.autoFade !== 'undefined') ? opt.autoFade : true;
-      biuDelay = (typeof opt.delay !== 'undefined') ? opt.delay : 5000;
-      if(typeof opt.parent !== 'undefined') {
-        biuParent = queryDom(opt.parent);
-        if(opt.parent != 'body') {
-          div.classList.add('biu-absolute');
-          biuParentIsBody = false;
-        }
+      if (this.options.pop) {
+        this.el.classList.add('biu-pop')
       }
-    } else if(argv[0] && !argv[1]) {
-      // biu('text') === biu('info', 'text')
-      biuContent = argv[0];
-    } else {
-      biuStyle = argv[0];
-      biuContent = argv[1];
-      biuAutoFade = (typeof argv[2] !== 'undefined') ? argv[2] : true;
+
+      if (!isBody(this.options.el)) {
+        this.options.el.style.overflow = 'hidden'
+        this.options.el.style.position = 'relative'
+        this.el.style.position = 'absolute'
+      }
+
+      // initial events
+      this.events = {}
+
+      // inner element
+      this.insert()
+
+      // auto hide animation
+      if (this.options.autoHide !== false) {
+        this.startTimeout()
+      }
+
+      // mouse events
+      this.registerEvents()
     }
 
-    // set biu style
-    biuStyle = 'biu-' + biuStyle;
-    div.classList.add('biu-instance');
-    div.classList.add(biuStyle);
-    div.setAttribute('style', style);
-    div.setAttribute('data-auto-hide', biuAutoFade);
+    insert() {
+      // close button
+      this.closeButton = D.createElement('div')
+      this.closeButton.className = 'biu-close'
+      this.closeButton.innerHTML = this.options.closeButton
+      this.el.appendChild(this.closeButton)
 
-    // set text content
-    if(!biuAutoFade) {
-      //var closeButtonTop =  (parseInt(biuOpts.height)/2) + 'px';
-      biuCloseButton = '<div class="biu-close" id="biu-close-' + timestamp + '"">' + biuOpts.closeButton + '</div>';
-    }
-    biuContent = '<div class="biu-content">' + biuContent + '</div>' + biuCloseButton;
-    div.innerHTML = biuContent;
+      // main
+      const elMain = D.createElement('div')
+      elMain.className = 'biu-main'
+      elMain.innerHTML = this.text
+      this.el.appendChild(elMain)
 
-    domEach(biuParent, function(el) {
-      el.appendChild(div);
-    })
-
-    setTimeout(function() {
-      div.classList.add('biu-shown');
-    }, 100)
-    if(biuAutoFade) {
-      setTimeout(function() {
-        onClose();
-      }, biuDelay);
-    } else {
-      document.getElementById('biu-close-' + timestamp).addEventListener('click', onClose);
+      this.options.el.appendChild(this.el)
+      setTimeout(() => {
+        this.el.classList.add('biu-shown')
+      }, 200)
     }
 
-    function onClose() {
-      div.classList.remove('biu-shown');
-      setTimeout(function() {
-        div.parentNode.removeChild(div);
-      }, 600);
-    };
-  };
+    registerEvents() {
+      if (this.options.autoHide !== false) {
+        this.events.mouseover = () => {
+          clearTimeout(this.timeout)
+          this.timeout = null
+        }
+        this.events.mouseleave = () => {
+          this.startTimeout()
+        }
+        this.el.addEventListener('mouseover', this.events.mouseover)
+        this.el.addEventListener('mouseleave', this.events.mouseleave)
+      }
 
-  if (typeof window !== 'undefined') {
-    window.biu = function() {
-      return new biu(arguments);
-    };
-  } else if (typeof module !== 'undefined') {
-    module.exports = function() {
-      return new biu(arguments);
-    };
+      this.events.close = () => this.close()
+      this.closeButton.addEventListener('click', this.events.close)
+    }
+
+    startTimeout(timeout = this.options.timeout) {
+      this.timeout = setTimeout(() => {
+        this.close()
+      }, timeout)
+    }
+
+    close() {
+      if (this.options.autoHide !== false) {
+        this.el.removeEventListener('mouseover', this.events.mouseover)
+        this.el.removeEventListener('mouseleave', this.events.mouseleave)
+      }
+      this.closeButton.removeEventListener('click', this.events.close)
+      if (this.options.pop) {
+        this.el.style.transform = 'translateX(-50%) translateY(-110%)'
+      } else {
+        this.el.style.transform = 'translateY(-100%)'
+      }
+      setTimeout(() => {
+        this.options.el.removeChild(this.el)
+      }, 300)
+    }
   }
 
+  function biu(text = '', {
+    type = 'default',
+    timeout = 3000,
+    autoHide = true,
+    closeButton = 'x',
+    el = document.body,
+    align = 'center',
+    pop = false
+  } = {}) {
+    return new Biu(text, {
+      type,
+      timeout,
+      autoHide,
+      closeButton,
+      el,
+      align,
+      pop
+    })
+  }
 
-})();
+  if (typeof module !== 'undefined') {
+    module.exports = biu
+  } else if (typeof window !== 'undefined') {
+    window.biu = biu
+  }
+})(window, document);

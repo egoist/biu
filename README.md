@@ -1,21 +1,24 @@
-# biu [![JS.ORG](https://img.shields.io/badge/js.org-biu-ffb400.svg?style=flat-square)](http://biu.js.org)
+# biu [![NPM version](https://img.shields.io/npm/v/biu.js.svg?style=flat-square)](https://npmjs.com/package/biu.js)  [![JS.ORG](https://img.shields.io/badge/js.org-biu-ffb400.svg?style=flat-square)](http://biu.js.org)
 
-an alert replacement
+An alert replacement (JS + CSS = 3KB)
 
 ## Install
 
 ```bash
-bower install biu
-npm install biu.js
+$ npm install biu.js
 ```
 
 ## Usage and Demo
 
 Visit [Biu](http://biu.js.org)
 
+## Browser support
+
+IE 9 and above should be supported, and last 2 versions of other modern browsers are supported.
+
 ## Development
 
-use `gulp build` to build or `gulp` to build and watch.
+use `npm run build` to build or `npm run dev` to build and watch.
 
 ## License
 

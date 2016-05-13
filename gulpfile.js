@@ -1,10 +1,13 @@
 var
   gulp = require('gulp'),
-  uglify = require('gulp-uglify'),
   jade = require('gulp-jade'),
   stylus = require('gulp-stylus'),
   sourcemaps = require('gulp-sourcemaps'),
-  serve = require('gulp-serve')
+  serve = require('gulp-serve'),
+  babel = require('gulp-babel'),
+  postcss = require('gulp-postcss'),
+  autoprefixer = require('autoprefixer'),
+  cssnano = require('cssnano')
 
 gulp.task('serve', serve({
   root: ['./'],
@@ -14,9 +17,10 @@ gulp.task('serve', serve({
 gulp.task('js', function() {
   gulp.src('./src/js/biu.js')
     .pipe(sourcemaps.init())
-    .pipe(uglify())
+    .pipe(babel())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('./'))
+    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./demo'))
 })
 
 gulp.task('html', function() {
@@ -26,13 +30,19 @@ gulp.task('html', function() {
         buildTime: new Date().getTime()
       }
     }))
-    .pipe(gulp.dest('./'))
+    .pipe(gulp.dest('./demo'))
 })
 
 gulp.task('css', function() {
   gulp.src('./src/styl/biu.styl')
-    .pipe(stylus({compress: true}))
-    .pipe(gulp.dest('./'))
+    .pipe(stylus())
+    .pipe(postcss([
+      autoprefixer({
+        browsers: ['ie > 8', 'last 2 versions']
+      }),
+    ]))
+    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./demo'))
 })
 
 gulp.task('watch', function() {
