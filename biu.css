@@ -16,6 +16,7 @@
 }
 .biu-instance.biu-pop {
   width: 400px;
+  max-width: 80%;
   left: 50%;
   right: none;
   -ms-transform: translateX(-50%) translateY(-110%);
