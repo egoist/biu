@@ -176,7 +176,7 @@ html
       h2 Prompt user
       :markdown
         ```javascript
-        const template = `Enter you name: <input id="prompt" type="text"/>
+        const template = `Enter your name: <input id="prompt" type="text"/>
           <button id="ok" class="button">OK!</button>`
           
         const tip = biu(template, {
@@ -199,7 +199,7 @@ html
     script(src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.4.1/components/prism-bash.min.js")
     script.
       function promptUser() {
-        var html = 'Enter you name: <input id="prompt" type="text"/> <button id="ok" class="button">OK!</button>'
+        var html = 'Enter your name: <input id="prompt" type="text"/> <button id="ok" class="button">OK!</button>'
         var tip = biu(html, {
           autoHide: false,
           onHidden: function () {
