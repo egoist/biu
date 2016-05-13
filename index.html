@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><title>Biu</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css"><link rel="stylesheet" href="./biu.css?t=1463130061210"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.4.1/themes/prism.min.css"><style>body {
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><title>Biu</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css"><link rel="stylesheet" href="./biu.css?t=1463132366277"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.4.1/themes/prism.min.css"><style>body {
   margin: 0;
   background: #f9f9f9;
   font: 15px/1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
@@ -108,14 +108,49 @@ biu(&#39;&#39;, {
   // how to align text
   align: &#39;center&#39;,
   // whether to pop up the element in vertial center
-  pop: false
+  pop: false,
+  // trigger after element is hidden
+  onHidden() {}
 })
 </code></pre>
-<h2>Biu in elements other than body</h2><div id="element" class="element"><span class="sandbox"> <button onclick="biu('Wow, how kimochi it is...',{autoHide:false,el: document.getElementById('element'),type:'success'})" class="hey">Touch me</button></span></div><h2>Trigger close</h2><pre><code class="lang-javascript">const tip = biu(&#39;hello&#39;, {autoHide: false})
+<h2>Biu in elements other than body</h2><div id="element" class="element"><span class="sandbox"> <button onclick="biu('Wow, how kimochi it is...',{autoHide:false,el: document.getElementById('element'),type:'success'})" class="hey">Touch me</button></span></div><h2>Trigger hide</h2><pre><code class="lang-javascript">const tip = biu(&#39;hello&#39;, {autoHide: false})
 
-// when it&#39;s time to close it, just call:
-tip.close()
+// when it&#39;s time to hide it, just call:
+tip.hide()
 </code></pre>
 <h2>Pop mode</h2><pre><code class="lang-javascript">biu(&#39;hello&#39;, {pop: true})
 </code></pre>
-<button onclick="biu('Neat one!', {autoHide: false, pop: true, closeButton: '&lt;i class=&quot;fa fa-close&quot;&gt;&lt;/i&gt;'})" class="button">Pop me!</button><footer class="footer">Made with <i style="color: #DD4A68;" class="fa fa-heart"></i> by <a href="https://github.com/egoist">EGOIST</a></footer></div><script src="./biu.js?t=1463130061210"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.4.1/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.4.1/components/prism-bash.min.js"></script></body></html>
+<button onclick="biu('Neat one!', {autoHide: false, pop: true, closeButton: '&lt;i class=&quot;fa fa-close&quot;&gt;&lt;/i&gt;'})" class="button">Pop me!</button><h2>Call function after element is hidden but before destoried</h2><pre><code class="lang-javascript">biu(&#39;how is it?&#39;, {
+  onHidden() {
+    alert(&#39;bye!&#39;)
+  }  
+})
+</code></pre>
+<button onclick="biu('how is it?', {onHidden: function() {alert('bye')}})" class="button">Trigger!</button><h2>Prompt user</h2><pre><code class="lang-javascript">const template = `Enter you name: &lt;input id=&quot;prompt&quot; type=&quot;text&quot;/&gt;
+  &lt;button id=&quot;ok&quot; class=&quot;button&quot;&gt;OK!&lt;/button&gt;`
+
+const tip = biu(template, {
+  autoHide: false,
+  onHidden() {
+    const name = document.querySelector(&#39;#prompt&#39;).value
+    biu(`hello ${name}`, {pop: true})
+  }  
+})
+
+document.getElementById(&#39;ok&#39;).addEventListener(&#39;click&#39;, () =&gt; {
+  tip.hide()
+}, false)
+</code></pre>
+<button onclick="promptUser()" class="button">Prompt!</button><footer class="footer">Made with <i style="color: #DD4A68;" class="fa fa-heart"></i> by <a href="https://github.com/egoist">EGOIST</a></footer></div><script src="./biu.js?t=1463132366277"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.4.1/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.4.1/components/prism-bash.min.js"></script><script>function promptUser() {
+  var html = 'Enter you name: <input id="prompt" type="text"/> <button id="ok" class="button">OK!</button>'
+  var tip = biu(html, {
+    autoHide: false,
+    onHidden: function () {
+      var name = document.querySelector('#prompt').value
+      biu('hello ' + name, {pop: true})
+    }  
+  })
+  document.getElementById('ok').addEventListener('click', function () {
+    tip.hide()
+  }, false)
+}</script></body></html>

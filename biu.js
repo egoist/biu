@@ -83,10 +83,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.el.addEventListener('mouseleave', this.events.mouseleave);
         }
 
-        this.events.close = function () {
-          return _this2.close();
+        this.events.hide = function () {
+          return _this2.hide();
         };
-        this.closeButton.addEventListener('click', this.events.close);
+        this.closeButton.addEventListener('click', this.events.hide);
       }
     }, {
       key: 'startTimeout',
@@ -96,25 +96,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         var timeout = arguments.length <= 0 || arguments[0] === undefined ? this.options.timeout : arguments[0];
 
         this.timeout = setTimeout(function () {
-          _this3.close();
+          _this3.hide();
         }, timeout);
       }
     }, {
-      key: 'close',
-      value: function close() {
+      key: 'hide',
+      value: function hide() {
         var _this4 = this;
 
         if (this.options.autoHide !== false) {
           this.el.removeEventListener('mouseover', this.events.mouseover);
           this.el.removeEventListener('mouseleave', this.events.mouseleave);
         }
-        this.closeButton.removeEventListener('click', this.events.close);
+        this.closeButton.removeEventListener('click', this.events.hide);
         if (this.options.pop) {
           this.el.style.transform = 'translateX(-50%) translateY(-110%)';
         } else {
           this.el.style.transform = 'translateY(-100%)';
         }
         setTimeout(function () {
+          if (_this4.options.onHidden) {
+            _this4.options.onHidden.call(_this4);
+          }
           _this4.options.el.removeChild(_this4.el);
         }, 300);
       }
@@ -142,6 +145,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var align = _ref$align === undefined ? 'center' : _ref$align;
     var _ref$pop = _ref.pop;
     var pop = _ref$pop === undefined ? false : _ref$pop;
+    var onHidden = _ref.onHidden;
 
     return new Biu(text, {
       type: type,
@@ -150,7 +154,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       closeButton: closeButton,
       el: el,
       align: align,
-      pop: pop
+      pop: pop,
+      onHidden: onHidden
     });
   }
 
