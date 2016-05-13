@@ -67,28 +67,31 @@
         this.el.addEventListener('mouseleave', this.events.mouseleave)
       }
 
-      this.events.close = () => this.close()
-      this.closeButton.addEventListener('click', this.events.close)
+      this.events.hide = () => this.hide()
+      this.closeButton.addEventListener('click', this.events.hide)
     }
 
     startTimeout(timeout = this.options.timeout) {
       this.timeout = setTimeout(() => {
-        this.close()
+        this.hide()
       }, timeout)
     }
 
-    close() {
+    hide() {
       if (this.options.autoHide !== false) {
         this.el.removeEventListener('mouseover', this.events.mouseover)
         this.el.removeEventListener('mouseleave', this.events.mouseleave)
       }
-      this.closeButton.removeEventListener('click', this.events.close)
+      this.closeButton.removeEventListener('click', this.events.hide)
       if (this.options.pop) {
         this.el.style.transform = 'translateX(-50%) translateY(-110%)'
       } else {
         this.el.style.transform = 'translateY(-100%)'
       }
       setTimeout(() => {
+        if (this.options.onHidden) {
+          this.options.onHidden.call(this)
+        }
         this.options.el.removeChild(this.el)
       }, 300)
     }
@@ -101,7 +104,8 @@
     closeButton = 'x',
     el = document.body,
     align = 'center',
-    pop = false
+    pop = false,
+    onHidden
   } = {}) {
     return new Biu(text, {
       type,
@@ -110,7 +114,8 @@
       closeButton,
       el,
       align,
-      pop
+      pop,
+      onHidden
     })
   }
 

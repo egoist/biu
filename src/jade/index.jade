@@ -140,20 +140,22 @@ html
           // how to align text
           align: 'center',
           // whether to pop up the element in vertial center
-          pop: false
+          pop: false,
+          // trigger after element is hidden
+          onHidden() {}
         })
         ```
       h2 Biu in elements other than body
       div.element#element
         span.sandbox 
           button.hey(onclick="biu('Wow, how kimochi it is...',{autoHide:false,el: document.getElementById('element'),type:'success'})") Touch me
-      h2 Trigger close
+      h2 Trigger hide
       :markdown
         ```javascript
         const tip = biu('hello', {autoHide: false})
         
-        // when it's time to close it, just call:
-        tip.close()
+        // when it's time to hide it, just call:
+        tip.hide()
         ```
       h2 Pop mode
       :markdown
@@ -161,8 +163,51 @@ html
         biu('hello', {pop: true})
         ```
       button.button(onclick="biu('Neat one!', {autoHide: false, pop: true, closeButton: '<i class=\"fa fa-close\"></i>'})") Pop me!
+      h2 Call function after element is hidden but before destoried
+      :markdown
+        ```javascript
+        biu('how is it?', {
+          onHidden() {
+            alert('bye!')
+          }  
+        })
+        ```
+      button.button(onclick="biu('how is it?', {onHidden: function() {alert('bye')}})") Trigger!
+      h2 Prompt user
+      :markdown
+        ```javascript
+        const template = `Enter you name: <input id="prompt" type="text"/>
+          <button id="ok" class="button">OK!</button>`
+          
+        const tip = biu(template, {
+          autoHide: false,
+          onHidden() {
+            const name = document.querySelector('#prompt').value
+            biu(`hello ${name}`, {pop: true})
+          }  
+        })
+        
+        document.getElementById('ok').addEventListener('click', () => {
+          tip.hide()
+        }, false)
+        ```
+      button.button(onclick="promptUser()") Prompt!
       footer.footer.
         Made with <i style="color: #DD4A68;" class="fa fa-heart"></i> by <a href="https://github.com/egoist">EGOIST</a>
     script(src="./biu.js?t=#{buildTime}")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.4.1/prism.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.4.1/components/prism-bash.min.js")
+    script.
+      function promptUser() {
+        var html = 'Enter you name: <input id="prompt" type="text"/> <button id="ok" class="button">OK!</button>'
+        var tip = biu(html, {
+          autoHide: false,
+          onHidden: function () {
+            var name = document.querySelector('#prompt').value
+            biu('hello ' + name, {pop: true})
+          }  
+        })
+        document.getElementById('ok').addEventListener('click', function () {
+          tip.hide()
+        }, false)
+      }
