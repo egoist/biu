@@ -1,6 +1,6 @@
 {
   "name": "biu.js",
-  "version": "0.0.12",
+  "version": "1.0.0",
   "description": "an alert replacement",
   "main": "./dist/biu.js",
   "scripts": {
