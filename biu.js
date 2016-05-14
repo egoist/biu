@@ -77,16 +77,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             _this2.timeout = null;
           };
           this.events.mouseleave = function () {
-            _this2.startTimeout();
+            return _this2.startTimeout();
           };
-          this.el.addEventListener('mouseover', this.events.mouseover);
-          this.el.addEventListener('mouseleave', this.events.mouseleave);
+          this.el.addEventListener('mouseover', this.events.mouseover, false);
+          this.el.addEventListener('mouseleave', this.events.mouseleave, false);
         }
 
         this.events.hide = function () {
           return _this2.hide();
         };
-        this.closeButton.addEventListener('click', this.events.hide);
+        this.closeButton.addEventListener('click', this.events.hide, false);
       }
     }, {
       key: 'startTimeout',
@@ -105,10 +105,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         var _this4 = this;
 
         if (this.options.autoHide !== false) {
-          this.el.removeEventListener('mouseover', this.events.mouseover);
-          this.el.removeEventListener('mouseleave', this.events.mouseleave);
+          this.el.removeEventListener('mouseover', this.events.mouseover, false);
+          this.el.removeEventListener('mouseleave', this.events.mouseleave, false);
         }
-        this.closeButton.removeEventListener('click', this.events.hide);
+        this.closeButton.removeEventListener('click', this.events.hide, false);
         if (this.options.pop) {
           this.el.style.transform = 'translateX(-50%) translateY(-110%)';
         } else {
