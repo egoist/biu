@@ -104,11 +104,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       value: function hide() {
         var _this4 = this;
 
-        if (this.options.autoHide !== false) {
-          this.el.removeEventListener('mouseover', this.events.mouseover, false);
-          this.el.removeEventListener('mouseleave', this.events.mouseleave, false);
-        }
-        this.closeButton.removeEventListener('click', this.events.hide, false);
         if (this.options.pop) {
           this.el.style.transform = 'translateX(-50%) translateY(-110%)';
         } else {
@@ -119,6 +114,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             _this4.options.onHidden.call(_this4);
           }
           _this4.options.el.removeChild(_this4.el);
+          _this4.el = null;
         }, 300);
       }
     }]);
