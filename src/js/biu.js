@@ -60,15 +60,13 @@
           clearTimeout(this.timeout)
           this.timeout = null
         }
-        this.events.mouseleave = () => {
-          this.startTimeout()
-        }
-        this.el.addEventListener('mouseover', this.events.mouseover)
-        this.el.addEventListener('mouseleave', this.events.mouseleave)
+        this.events.mouseleave = () => this.startTimeout()
+        this.el.addEventListener('mouseover', this.events.mouseover, false)
+        this.el.addEventListener('mouseleave', this.events.mouseleave, false)
       }
 
       this.events.hide = () => this.hide()
-      this.closeButton.addEventListener('click', this.events.hide)
+      this.closeButton.addEventListener('click', this.events.hide, false)
     }
 
     startTimeout(timeout = this.options.timeout) {
@@ -79,10 +77,10 @@
 
     hide() {
       if (this.options.autoHide !== false) {
-        this.el.removeEventListener('mouseover', this.events.mouseover)
-        this.el.removeEventListener('mouseleave', this.events.mouseleave)
+        this.el.removeEventListener('mouseover', this.events.mouseover, false)
+        this.el.removeEventListener('mouseleave', this.events.mouseleave, false)
       }
-      this.closeButton.removeEventListener('click', this.events.hide)
+      this.closeButton.removeEventListener('click', this.events.hide, false)
       if (this.options.pop) {
         this.el.style.transform = 'translateX(-50%) translateY(-110%)'
       } else {
