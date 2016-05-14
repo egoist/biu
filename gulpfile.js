@@ -10,7 +10,7 @@ var
   cssnano = require('cssnano')
 
 gulp.task('serve', serve({
-  root: ['./'],
+  root: ['./demo'],
   port: 3000
 }));
 
