@@ -7,7 +7,9 @@ var
   babel = require('gulp-babel'),
   postcss = require('gulp-postcss'),
   autoprefixer = require('autoprefixer'),
-  cssnano = require('cssnano')
+  cssnano = require('cssnano'),
+  uglify = require('gulp-uglify'),
+  rename = require('gulp-rename')
 
 gulp.task('serve', serve({
   root: ['./demo'],
@@ -16,8 +18,17 @@ gulp.task('serve', serve({
 
 gulp.task('js', function() {
   gulp.src('./src/js/biu.js')
+    .pipe(babel())
+    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./demo'))
+})
+
+gulp.task('js:min', function() {
+  gulp.src('./src/js/biu.js')
     .pipe(sourcemaps.init())
     .pipe(babel())
+    .pipe(uglify())
+    .pipe(rename({suffix: '.min'}))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./dist'))
     .pipe(gulp.dest('./demo'))
@@ -40,6 +51,7 @@ gulp.task('css', function() {
       autoprefixer({
         browsers: ['ie > 8', 'last 2 versions']
       }),
+      cssnano()
     ]))
     .pipe(gulp.dest('./dist'))
     .pipe(gulp.dest('./demo'))
@@ -48,9 +60,9 @@ gulp.task('css', function() {
 gulp.task('watch', function() {
   gulp.watch('./src/jade/index.jade', ['html'])
   gulp.watch('./src/styl/biu.styl', ['css'])
-  gulp.watch('./src/js/biu.js', ['js'])
+  gulp.watch('./src/js/biu.js', ['js', 'js:min'])
 })
 
-gulp.task('build', ['js', 'css', 'html'])
+gulp.task('build', ['js', 'js:min', 'css', 'html'])
 
 gulp.task('default', ['build', 'watch', 'serve'])

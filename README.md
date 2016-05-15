@@ -16,6 +16,18 @@ Visit [Biu](http://biu.js.org)
 
 IE 9 and above should be supported, and last 2 versions of other modern browsers are supported.
 
+## Directory tree
+
+This `dist` is excluded in git but included in npm package.
+
+```bash
+dist
+├──  biu.css
+├──  biu.js
+├──  biu.min.js
+└──  biu.min.js.map
+```
+
 ## Related
 
 [corner-notie](https://github.com/egoist/corner-notie) - A light-weight toastr notifications utility for the web.
