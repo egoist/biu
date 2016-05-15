@@ -134,7 +134,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _ref$autoHide = _ref.autoHide;
     var autoHide = _ref$autoHide === undefined ? true : _ref$autoHide;
     var _ref$closeButton = _ref.closeButton;
-    var closeButton = _ref$closeButton === undefined ? 'x' : _ref$closeButton;
+    var closeButton = _ref$closeButton === undefined ? '×' : _ref$closeButton;
     var _ref$el = _ref.el;
     var el = _ref$el === undefined ? document.body : _ref$el;
     var _ref$align = _ref.align;
@@ -161,4 +161,3 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     window.biu = biu;
   }
 }(window, document);
-//# sourceMappingURL=biu.js.map
