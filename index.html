@@ -120,10 +120,10 @@ tip.hide()
 </code></pre>
 <h2>Pop mode</h2><pre><code class="lang-javascript">biu(&#39;hello&#39;, {pop: true})
 </code></pre>
-<button onclick="biu('Neat one!', {autoHide: false, pop: true, closeButton: '&lt;i class=&quot;fa fa-close&quot;&gt;&lt;/i&gt;'})" class="button">Pop me!</button><h2>Call function after element is hidden but before destoried</h2><pre><code class="lang-javascript">biu(&#39;how is it?&#39;, {
+<button onclick="biu('Neat one!', {autoHide: false, pop: true, closeButton: '&lt;i class=&quot;fa fa-close&quot;&gt;&lt;/i&gt;'})" class="button">Pop me!</button><h2>Call function after the element is hidden but before it gets destroyed</h2><pre><code class="lang-javascript">biu(&#39;how is it?&#39;, {
   onHidden() {
     alert(&#39;bye!&#39;)
-  }  
+  }
 })
 </code></pre>
 <button onclick="biu('how is it?', {onHidden: function() {alert('bye')}})" class="button">Trigger!</button><h2>Prompt user</h2><pre><code class="lang-javascript">const template = `Enter your name: &lt;input id=&quot;prompt&quot; type=&quot;text&quot;/&gt;
@@ -134,7 +134,7 @@ const tip = biu(template, {
   onHidden() {
     const name = document.querySelector(&#39;#prompt&#39;).value
     biu(`hello ${name}`, {pop: true})
-  }  
+  }
 })
 
 document.getElementById(&#39;ok&#39;).addEventListener(&#39;click&#39;, () =&gt; {
@@ -148,7 +148,7 @@ document.getElementById(&#39;ok&#39;).addEventListener(&#39;click&#39;, () =&gt;
     onHidden: function () {
       var name = document.querySelector('#prompt').value
       biu('hello ' + name, {pop: true})
-    }  
+    }
   })
   document.getElementById('ok').addEventListener('click', function () {
     tip.hide()
