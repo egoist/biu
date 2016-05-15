@@ -95,7 +95,7 @@
     type = 'default',
     timeout = 3000,
     autoHide = true,
-    closeButton = 'x',
+    closeButton = '×',
     el = document.body,
     align = 'center',
     pop = false,
