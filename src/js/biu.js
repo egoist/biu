@@ -70,7 +70,7 @@ class Biu {
       this.hide()
     }, timeout)
   }
-  
+
   stopTimer() {
     if (this.timer) {
       clearTimeout(this.timer)
