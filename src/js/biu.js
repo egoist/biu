@@ -5,7 +5,7 @@ class Biu {
   constructor(text, options) {
     this.text = text
     this.options = options
-    this.el = D.createElement('div')
+    this.el = document.createElement('div')
     this.el.className = `biu-instance biu-${options.type}`
     this.el.style.textAlign = this.options.align
 
@@ -36,13 +36,13 @@ class Biu {
 
   insert() {
     // close button
-    this.closeButton = D.createElement('div')
+    this.closeButton = document.createElement('div')
     this.closeButton.className = 'biu-close'
     this.closeButton.innerHTML = this.options.closeButton
     this.el.appendChild(this.closeButton)
 
     // main
-    const elMain = D.createElement('div')
+    const elMain = document.createElement('div')
     elMain.className = 'biu-main'
     elMain.innerHTML = this.text
     this.el.appendChild(elMain)
