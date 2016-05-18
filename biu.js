@@ -1,21 +1,48 @@
-'use strict';
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.biu = factory());
+}(this, function () { 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+  var babelHelpers = {};
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  babelHelpers.classCallCheck = function (instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  };
 
-!function (W, D) {
+  babelHelpers.createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
+  babelHelpers;
+
   function isBody(el) {
     return el.toString && el.toString() === '[object HTMLBodyElement]';
   }
 
   var Biu = function () {
     function Biu(text, options) {
-      _classCallCheck(this, Biu);
+      babelHelpers.classCallCheck(this, Biu);
 
       this.text = text;
       this.options = options;
-      this.el = D.createElement('div');
+      this.el = document.createElement('div');
       this.el.className = 'biu-instance biu-' + options.type;
       this.el.style.textAlign = this.options.align;
 
@@ -37,26 +64,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       // auto hide animation
       if (this.options.autoHide !== false) {
-        this.startTimeout();
+        this.startTimer();
       }
 
       // mouse events
       this.registerEvents();
     }
 
-    _createClass(Biu, [{
+    babelHelpers.createClass(Biu, [{
       key: 'insert',
       value: function insert() {
         var _this = this;
 
         // close button
-        this.closeButton = D.createElement('div');
+        this.closeButton = document.createElement('div');
         this.closeButton.className = 'biu-close';
         this.closeButton.innerHTML = this.options.closeButton;
         this.el.appendChild(this.closeButton);
 
         // main
-        var elMain = D.createElement('div');
+        var elMain = document.createElement('div');
         elMain.className = 'biu-main';
         elMain.innerHTML = this.text;
         this.el.appendChild(elMain);
@@ -73,11 +100,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         if (this.options.autoHide !== false) {
           this.events.mouseover = function () {
-            clearTimeout(_this2.timeout);
-            _this2.timeout = null;
+            return _this2.stopTimer();
           };
           this.events.mouseleave = function () {
-            return _this2.startTimeout();
+            return _this2.startTimer();
           };
           this.el.addEventListener('mouseover', this.events.mouseover, false);
           this.el.addEventListener('mouseleave', this.events.mouseleave, false);
@@ -89,20 +115,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.closeButton.addEventListener('click', this.events.hide, false);
       }
     }, {
-      key: 'startTimeout',
-      value: function startTimeout() {
+      key: 'startTimer',
+      value: function startTimer() {
         var _this3 = this;
 
         var timeout = arguments.length <= 0 || arguments[0] === undefined ? this.options.timeout : arguments[0];
 
-        this.timeout = setTimeout(function () {
+        this.timer = setTimeout(function () {
           _this3.hide();
         }, timeout);
+      }
+    }, {
+      key: 'stopTimer',
+      value: function stopTimer() {
+        if (this.timer) {
+          clearTimeout(this.timer);
+          this.timer = null;
+        }
       }
     }, {
       key: 'hide',
       value: function hide() {
         var _this4 = this;
+
+        if (!this.el) {
+          return;
+        }
 
         if (this.options.pop) {
           this.el.style.transform = 'translateX(-50%) translateY(-110%)';
@@ -115,10 +153,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
           _this4.options.el.removeChild(_this4.el);
           _this4.el = null;
+          _this4.stopTimer();
         }, 300);
       }
     }]);
-
     return Biu;
   }();
 
@@ -155,9 +193,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     });
   }
 
-  if (typeof module !== 'undefined') {
-    module.exports = biu;
-  } else if (typeof window !== 'undefined') {
-    window.biu = biu;
-  }
-}(window, document);
+  return biu;
+
+}));
