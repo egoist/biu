@@ -4,12 +4,21 @@ var
   stylus = require('gulp-stylus'),
   sourcemaps = require('gulp-sourcemaps'),
   serve = require('gulp-serve'),
-  babel = require('gulp-babel'),
+  babel = require('rollup-plugin-babel'),
   postcss = require('gulp-postcss'),
   autoprefixer = require('autoprefixer'),
   cssnano = require('cssnano'),
   uglify = require('gulp-uglify'),
-  rename = require('gulp-rename')
+  rename = require('gulp-rename'),
+  rollup = require('gulp-rollup')
+
+var rollupConfig = {
+  plugins: [
+    babel()
+  ],
+  format: 'umd',
+  moduleName: 'biu'
+}
 
 gulp.task('serve', serve({
   root: ['./demo'],
@@ -18,15 +27,29 @@ gulp.task('serve', serve({
 
 gulp.task('js', function() {
   gulp.src('./src/js/biu.js')
-    .pipe(babel())
+    .pipe(rollup(rollupConfig))
+    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./demo'))
+})
+
+gulp.task('js:cjs', function() {
+  var config = Object.assign({}, rollupConfig, {
+    format: 'cjs'
+  })
+  gulp.src('./src/js/biu.js')
+    .pipe(rollup(config))
+    .pipe(rename('biu.cjs.js'))
     .pipe(gulp.dest('./dist'))
     .pipe(gulp.dest('./demo'))
 })
 
 gulp.task('js:min', function() {
+  var config = Object.assign({}, rollupConfig, {
+    sourceMap: true
+  })
   gulp.src('./src/js/biu.js')
     .pipe(sourcemaps.init())
-    .pipe(babel())
+    .pipe(rollup(config))
     .pipe(uglify())
     .pipe(rename({suffix: '.min'}))
     .pipe(sourcemaps.write('.'))
@@ -63,6 +86,6 @@ gulp.task('watch', function() {
   gulp.watch('./src/js/biu.js', ['js', 'js:min'])
 })
 
-gulp.task('build', ['js', 'js:min', 'css', 'html'])
+gulp.task('build', ['js', 'js:min', 'js:cjs', 'css', 'html'])
 
 gulp.task('default', ['build', 'watch', 'serve'])

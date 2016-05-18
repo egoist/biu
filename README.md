@@ -24,6 +24,7 @@ This `dist` is excluded in git but included in npm package.
 dist
 ├──  biu.css
 ├──  biu.js
+├──  biu.cjs.js
 ├──  biu.min.js
 └──  biu.min.js.map
 ```
