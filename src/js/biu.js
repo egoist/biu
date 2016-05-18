@@ -27,7 +27,7 @@ class Biu {
 
     // auto hide animation
     if (this.options.autoHide !== false) {
-      this.startTimeout()
+      this.startTimer()
     }
 
     // mouse events
@@ -55,11 +55,8 @@ class Biu {
 
   registerEvents() {
     if (this.options.autoHide !== false) {
-      this.events.mouseover = () => {
-        clearTimeout(this.timeout)
-        this.timeout = null
-      }
-      this.events.mouseleave = () => this.startTimeout()
+      this.events.mouseover = () => this.stopTimer()
+      this.events.mouseleave = () => this.startTimer()
       this.el.addEventListener('mouseover', this.events.mouseover, false)
       this.el.addEventListener('mouseleave', this.events.mouseleave, false)
     }
@@ -68,10 +65,17 @@ class Biu {
     this.closeButton.addEventListener('click', this.events.hide, false)
   }
 
-  startTimeout(timeout = this.options.timeout) {
-    this.timeout = setTimeout(() => {
+  startTimer(timeout = this.options.timeout) {
+    this.timer = setTimeout(() => {
       this.hide()
     }, timeout)
+  }
+  
+  stopTimer() {
+    if (this.timer) {
+      clearTimeout(this.timer)
+      this.timer = null
+    }
   }
 
   hide() {
@@ -90,6 +94,7 @@ class Biu {
       }
       this.options.el.removeChild(this.el)
       this.el = null
+      this.stopTimer()
     }, 300)
   }
 }
