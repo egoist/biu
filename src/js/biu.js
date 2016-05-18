@@ -76,6 +76,8 @@
     }
 
     hide() {
+      if (!this.el) return
+        
       if (this.options.pop) {
         this.el.style.transform = 'translateX(-50%) translateY(-110%)'
       } else {
