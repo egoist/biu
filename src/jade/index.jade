@@ -132,6 +132,8 @@ html
           // auto-hide in specific timeout
           autoHide: true,
           timeout: 3000,
+          // hide immediately when clicked
+          hideOnClick: false,
           // use font-awesome if you like!
           // closeButton: '<i class="fa fa-close"></i>',
           closeButton: '×',
@@ -163,6 +165,12 @@ html
         biu('Neat one!', {pop: true})
         ```
       button.button(onclick="biu('Neat one!', {autoHide: false, pop: true, closeButton: '<i class=\"fa fa-close\"></i>'})") Pop me!
+      h2 Hide on click
+      :markdown
+        ```javascript
+        biu('Wow, amazeballs!', {hideOnClick: true})
+        ```
+      button.button(onclick="biu('Wow, amazeballs!', {hideOnClick: true})") Click me!
       h2 Call function after the element is hidden but before it gets destroyed
       :markdown
         ```javascript

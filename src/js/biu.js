@@ -61,8 +61,12 @@ class Biu {
       this.el.addEventListener('mouseleave', this.events.mouseleave, false)
     }
 
-    this.events.hide = () => this.hide()
+    this.events.hide = (event) => this.hide(event)
     this.closeButton.addEventListener('click', this.events.hide, false)
+
+    if (this.options.hideOnClick) {
+      this.el.addEventListener('click', this.events.hide, false)
+    }
   }
 
   startTimer(timeout = this.options.timeout) {
@@ -78,8 +82,8 @@ class Biu {
     }
   }
 
-  hide() {
-    if (!this.el) {
+  hide(event = {}) {
+    if (!this.el || (event.target && event.target.tagName == 'A')) {
       return
     }
 
@@ -103,6 +107,7 @@ function biu(text = '', {
   type = 'default',
   timeout = 3000,
   autoHide = true,
+  hideOnClick = false,
   closeButton = '×',
   el = document.body,
   align = 'center',
@@ -114,6 +119,7 @@ function biu(text = '', {
     timeout,
     autoHide,
     closeButton,
+    hideOnClick,
     el,
     align,
     pop,
