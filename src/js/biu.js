@@ -82,8 +82,8 @@ class Biu {
     }
   }
 
-    if (!this.el) {
   hide(event = {}) {
+    if (!this.el || (event.target && event.target.tagName == 'A')) {
       return
     }
 
