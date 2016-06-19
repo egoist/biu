@@ -62,10 +62,11 @@ class Biu {
     }
 
     this.events.hide = (event) => this.hide(event)
-    this.closeButton.addEventListener('click', this.events.hide, false)
 
     if (this.options.hideOnClick) {
       this.el.addEventListener('click', this.events.hide, false)
+    } else {
+      this.closeButton.addEventListener('click', this.events.hide, false)
     }
   }
 
