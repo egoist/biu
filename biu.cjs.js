@@ -1,14 +1,12 @@
 'use strict';
 
-var babelHelpers = {};
-
-babelHelpers.classCallCheck = function (instance, Constructor) {
+var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 };
 
-babelHelpers.createClass = function () {
+var createClass = function () {
   function defineProperties(target, props) {
     for (var i = 0; i < props.length; i++) {
       var descriptor = props[i];
@@ -26,15 +24,13 @@ babelHelpers.createClass = function () {
   };
 }();
 
-babelHelpers;
-
 function isBody(el) {
   return el.toString && el.toString() === '[object HTMLBodyElement]';
 }
 
 var Biu = function () {
   function Biu(text, options) {
-    babelHelpers.classCallCheck(this, Biu);
+    classCallCheck(this, Biu);
 
     this.text = text;
     this.options = options;
@@ -67,7 +63,7 @@ var Biu = function () {
     this.registerEvents();
   }
 
-  babelHelpers.createClass(Biu, [{
+  createClass(Biu, [{
     key: 'insert',
     value: function insert() {
       var _this = this;
@@ -105,10 +101,15 @@ var Biu = function () {
         this.el.addEventListener('mouseleave', this.events.mouseleave, false);
       }
 
-      this.events.hide = function () {
-        return _this2.hide();
+      this.events.hide = function (event) {
+        return _this2.hide(event);
       };
-      this.closeButton.addEventListener('click', this.events.hide, false);
+
+      if (this.options.hideOnClick) {
+        this.el.addEventListener('click', this.events.hide, false);
+      } else {
+        this.closeButton.addEventListener('click', this.events.hide, false);
+      }
     }
   }, {
     key: 'startTimer',
@@ -134,7 +135,9 @@ var Biu = function () {
     value: function hide() {
       var _this4 = this;
 
-      if (!this.el) {
+      var event = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+      if (!this.el || event.target && event.target.tagName == 'A') {
         return;
       }
 
@@ -167,6 +170,8 @@ function biu() {
   var timeout = _ref$timeout === undefined ? 3000 : _ref$timeout;
   var _ref$autoHide = _ref.autoHide;
   var autoHide = _ref$autoHide === undefined ? true : _ref$autoHide;
+  var _ref$hideOnClick = _ref.hideOnClick;
+  var hideOnClick = _ref$hideOnClick === undefined ? false : _ref$hideOnClick;
   var _ref$closeButton = _ref.closeButton;
   var closeButton = _ref$closeButton === undefined ? '×' : _ref$closeButton;
   var _ref$el = _ref.el;
@@ -182,6 +187,7 @@ function biu() {
     timeout: timeout,
     autoHide: autoHide,
     closeButton: closeButton,
+    hideOnClick: hideOnClick,
     el: el,
     align: align,
     pop: pop,
