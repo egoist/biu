@@ -141,7 +141,7 @@
 
         var event = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-        if (!this.el || event.target && event.target.tagName == 'A') {
+        if (!this.el || event.target && event.target.tagName === 'A') {
           return;
         }
 
