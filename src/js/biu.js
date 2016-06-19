@@ -61,7 +61,7 @@ class Biu {
       this.el.addEventListener('mouseleave', this.events.mouseleave, false)
     }
 
-    this.events.hide = () => this.hide()
+    this.events.hide = (event) => this.hide(event)
     this.closeButton.addEventListener('click', this.events.hide, false)
 
     if (this.options.hideOnClick) {
@@ -82,8 +82,8 @@ class Biu {
     }
   }
 
-  hide() {
     if (!this.el) {
+  hide(event = {}) {
       return
     }
 
