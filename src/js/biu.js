@@ -63,6 +63,10 @@ class Biu {
 
     this.events.hide = () => this.hide()
     this.closeButton.addEventListener('click', this.events.hide, false)
+
+    if (this.options.hideOnClick) {
+      this.el.addEventListener('click', this.events.hide, false)
+    }
   }
 
   startTimer(timeout = this.options.timeout) {
@@ -103,6 +107,7 @@ function biu(text = '', {
   type = 'default',
   timeout = 3000,
   autoHide = true,
+  hideOnClick = false,
   closeButton = '×',
   el = document.body,
   align = 'center',
@@ -114,6 +119,7 @@ function biu(text = '', {
     timeout,
     autoHide,
     closeButton,
+    hideOnClick,
     el,
     align,
     pop,
